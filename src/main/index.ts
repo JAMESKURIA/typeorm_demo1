@@ -1,14 +1,18 @@
 import express, { Application } from "express";
 import "reflect-metadata";
-import { createExpressServer, useContainer } from "routing-controllers";
+import { useContainer, useExpressServer } from "routing-controllers";
 import Container from "typedi";
 import { AppDataSource } from "../resources/data-source";
+import { BookController } from "./books/controller/BookController";
 import { UserController } from "./user/controller/UserController";
+
+const app: Application = express();
 
 const PORT = process.env.PORT || 8080;
 
-const app: Application = createExpressServer({
-  controllers: [UserController],
+useExpressServer(app, {
+  routePrefix: "/api/v1",
+  controllers: [UserController, BookController],
 });
 
 // Middlewares

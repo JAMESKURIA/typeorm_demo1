@@ -6,3 +6,4 @@ yarn-error.log
 .env
 requests.rest
 dist
+ormlogs.log
