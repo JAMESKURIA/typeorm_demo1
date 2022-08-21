@@ -6,7 +6,7 @@ import { BookServiceImpl } from "./../service/impl/BookServiceImpl";
 @Service()
 export class BookController {
   @Inject()
-  bookService!: BookServiceImpl;
+  private readonly bookService!: BookServiceImpl;
 
   @Get()
   getBooks() {

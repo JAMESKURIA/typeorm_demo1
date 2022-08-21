@@ -1,23 +1,22 @@
 import express, { Application } from "express";
+import path from "path";
 import "reflect-metadata";
 import { useContainer, useExpressServer } from "routing-controllers";
 import Container from "typedi";
 import { AppDataSource } from "../resources/data-source";
-import { BookController } from "./books/controller/BookController";
-import { UserController } from "./user/controller/UserController";
 
 const app: Application = express();
 
 const PORT = process.env.PORT || 8080;
 
-useExpressServer(app, {
-  routePrefix: "/api/v1",
-  controllers: [UserController, BookController],
-});
-
 // Middlewares
 app.use(express.json());
 useContainer(Container);
+
+useExpressServer(app, {
+  routePrefix: "/api/v1",
+  controllers: [path.join(__dirname, "/**/controller/*.ts")],
+});
 
 // Initialize application
 AppDataSource.initialize()

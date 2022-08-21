@@ -1,7 +1,10 @@
 import "dotenv/config";
+import path from "path";
 import { DataSource } from "typeorm";
-import { Book } from "../main/books/model/Book";
-import { User } from "../main/user/model/User";
+
+const projectPath: string = path
+  .resolve(__dirname)
+  .replace("resources", "main");
 
 export const AppDataSource = new DataSource({
   type: "postgres",
@@ -13,7 +16,7 @@ export const AppDataSource = new DataSource({
   synchronize: true,
   logging: true,
   logger: "file",
-  entities: [User, Book],
+  entities: [`${projectPath}/**/model/*.ts`],
   subscribers: [],
   migrations: [],
 });
